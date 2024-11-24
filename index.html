@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPS Location Tracking</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy3ua5ZztcRhTxG4gLKN0ZshopLZ5d72E&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 100%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Patient Location on Map</h1>
+    <div id="map"></div>
+
+    <script>
+        let map;
+        let marker;
+
+        function initMap() {
+            // Set default coordinates for the map view
+            const defaultLat = 20.5937;  // Default latitude (India)
+            const defaultLng = 78.9629;  // Default longitude (India)
+
+            // Create a new map
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: { lat: defaultLat, lng: defaultLng },
+            });
+
+            // Add a marker to the map at the default position
+            marker = new google.maps.Marker({
+                position: { lat: defaultLat, lng: defaultLng },
+                map: map,
+                title: "Patient's location",
+            });
+        }
+
+        // Function to update marker location
+        function updateLocation(lat, lng) {
+            const position = new google.maps.LatLng(lat, lng);
+            marker.setPosition(position);
+            map.setCenter(position);
+        }
+
+        // Simulating GPS data for testing
+        setInterval(function() {
+            // Fetch live GPS data or use static coordinates
+            let lat = 28.7041;  // Example latitude (replace with actual GPS data)
+            let lng = 77.1025;  // Example longitude (replace with actual GPS data)
+
+            updateLocation(lat, lng);
+        }, 5000);  // Update location every 5 seconds
+    </script>
+</body>
+</html>
